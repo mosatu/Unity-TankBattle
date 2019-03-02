@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace TankBattle
 {
+    /// <summary>
+    /// 装甲类
+    /// </summary>
     public class TankHealth : MonoBehaviour
     {
         public float m_StartingHealth = 100f;               // The amount of health each tank starts with.

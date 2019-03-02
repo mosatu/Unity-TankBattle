@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace TankBattle
 {
+    /// <summary>
+    /// 子弹类
+    /// </summary>
     public class ShellExplosion : MonoBehaviour
     {
         public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".

@@ -13,6 +13,7 @@ namespace TankBattle
 {
     public class ProcedureMain : ProcedureBase
     {
+
         private const float GameOverDelayedSeconds = 2f;
 
         private readonly Dictionary<GameMode, GameBase> m_Games = new Dictionary<GameMode, GameBase>();
@@ -93,11 +94,13 @@ namespace TankBattle
 //            if (m_GotoMenuDelaySeconds >= GameOverDelayedSeconds)
 
 //            Log.Debug("m_CurrentGame.GameOver ：" + m_CurrentGame.GameOver);
+/*
             if (m_CurrentGame.GameOver)
             {
                 procedureOwner.SetData<VarInt>(Constant.ProcedureData.NextSceneId, GameEntry.Config.GetInt("Scene.Menu"));
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
+*/
         }
     }
 }

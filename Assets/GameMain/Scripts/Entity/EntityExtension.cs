@@ -11,6 +11,9 @@ using UnityGameFramework.Runtime;
 
 namespace TankBattle
 {
+    /// <summary>
+    /// 实体展示层
+    /// </summary>
     public static class EntityExtension
     {
         // 关于 EntityId 的约定：
@@ -24,7 +27,10 @@ namespace TankBattle
             return --s_SerialId;
         }
         
-        
+        public static void ShowWeapon(this EntityComponent entityComponent, WeaponData data)
+        {
+            entityComponent.ShowEntity(typeof(Weapon), "Weapon", Constant.AssetPriority.WeaponAsset, data);
+        }
         
         public static void ShowBullet(this EntityComponent entityCompoennt, BulletData data)
         {

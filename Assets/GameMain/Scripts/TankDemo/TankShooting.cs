@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankBattle
+namespace TankBattleDemo
 {
     public class TankShooting : MonoBehaviour
     {

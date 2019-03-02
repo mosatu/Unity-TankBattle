@@ -11,24 +11,34 @@ using UnityEngine;
 
 namespace TankBattle
 {
+    /// <summary>
+    /// 武器数据类
+    /// </summary>
     [Serializable]
     public class WeaponData : AccessoryObjectData
     {
         [SerializeField]
-        private int m_Attack = 0;
+        private int m_Attack = 0;                   //武器攻击力
 
         [SerializeField]
-        private float m_AttackInterval = 0f;
+        private float m_AttackInterval = 0f;        //w武器的攻击间隔时间
 
         [SerializeField]
-        private int m_BulletId = 0;
+        private int m_BulletId = 0;                 // 武器发出的子弹Id编号
 
         [SerializeField]
-        private float m_BulletSpeed = 0f;
+        private float m_BulletSpeed = 0f;           // 子弹的射速
 
         [SerializeField]
-        private int m_BulletSoundId = 0;
+        private int m_BulletSoundId = 0;            // 子弹播放的音效编号
 
+        /// <summary>
+        /// 武器数据的构造方法
+        /// </summary>
+        /// <param name="entityId">实体编号</param>
+        /// <param name="typeId">实体类型编号</param>
+        /// <param name="ownerId">武器拥有者编号</param>
+        /// <param name="ownerCamp">武器拥有者阵营</param>
         public WeaponData(int entityId, int typeId, int ownerId, CampType ownerCamp)
             : base(entityId, typeId, ownerId, ownerCamp)
         {
