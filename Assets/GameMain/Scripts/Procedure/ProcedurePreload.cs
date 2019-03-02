@@ -19,11 +19,15 @@ namespace TankBattle
     {
         public static readonly string[] DataTableNames = new string[]
         {
-
+/*
             "Aircraft",
             "Scene",
             "Sound",
-/*
+            "Weapon",
+            "Entity",
+            "Music",
+            */
+
             "Armor",
             "Asteroid",
             "Entity",
@@ -34,7 +38,7 @@ namespace TankBattle
             "UIForm",
             "UISound",
             "Weapon",
-*/
+      
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

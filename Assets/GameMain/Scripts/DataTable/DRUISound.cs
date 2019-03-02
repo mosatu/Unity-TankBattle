@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-03-01 18:46:54.142
+// 生成时间：2019-03-01 18:46:54.165
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace TankBattle
 {
     /// <summary>
-    /// 场景配置表。
+    /// 声音配置表。
     /// </summary>
-    public class DRScene : DataRowBase
+    public class DRUISound : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取场景编号。
+        /// 获取声音编号。
         /// </summary>
         public override int Id
         {
@@ -46,9 +46,18 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取背景音乐编号。
+        /// 获取优先级（默认0，128最高，-128最低）。
         /// </summary>
-        public int BackgroundMusicId
+        public int Priority
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取音量（0~1）。
+        /// </summary>
+        public float Volume
         {
             get;
             private set;
@@ -68,7 +77,8 @@ namespace TankBattle
             m_Id = int.Parse(columnTexts[index++]);
             index++;
             AssetName = columnTexts[index++];
-            BackgroundMusicId = int.Parse(columnTexts[index++]);
+            Priority = int.Parse(columnTexts[index++]);
+            Volume = float.Parse(columnTexts[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -83,7 +93,8 @@ namespace TankBattle
                 {
                     m_Id = binaryReader.ReadInt32();
                     AssetName = binaryReader.ReadString();
-                    BackgroundMusicId = binaryReader.ReadInt32();
+                    Priority = binaryReader.ReadInt32();
+                    Volume = binaryReader.ReadSingle();
                 }
             }
 

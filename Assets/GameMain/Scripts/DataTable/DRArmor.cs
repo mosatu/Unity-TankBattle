@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-03-01 18:46:54.142
+// 生成时间：2019-03-01 18:46:54.077
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace TankBattle
 {
     /// <summary>
-    /// 场景配置表。
+    /// 装甲表。
     /// </summary>
-    public class DRScene : DataRowBase
+    public class DRArmor : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取场景编号。
+        /// 获取装甲编号。
         /// </summary>
         public override int Id
         {
@@ -37,18 +37,18 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取最大生命。
         /// </summary>
-        public string AssetName
+        public int MaxHP
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取背景音乐编号。
+        /// 获取防御力。
         /// </summary>
-        public int BackgroundMusicId
+        public int Defense
         {
             get;
             private set;
@@ -67,8 +67,8 @@ namespace TankBattle
             index++;
             m_Id = int.Parse(columnTexts[index++]);
             index++;
-            AssetName = columnTexts[index++];
-            BackgroundMusicId = int.Parse(columnTexts[index++]);
+            MaxHP = int.Parse(columnTexts[index++]);
+            Defense = int.Parse(columnTexts[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -82,8 +82,8 @@ namespace TankBattle
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.ReadInt32();
-                    AssetName = binaryReader.ReadString();
-                    BackgroundMusicId = binaryReader.ReadInt32();
+                    MaxHP = binaryReader.ReadInt32();
+                    Defense = binaryReader.ReadInt32();
                 }
             }
 

@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-03-01 18:46:54.142
+// 生成时间：2019-03-01 18:46:54.170
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace TankBattle
 {
     /// <summary>
-    /// 场景配置表。
+    /// 武器表。
     /// </summary>
-    public class DRScene : DataRowBase
+    public class DRWeapon : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取场景编号。
+        /// 获取武器编号。
         /// </summary>
         public override int Id
         {
@@ -37,18 +37,45 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取攻击力。
         /// </summary>
-        public string AssetName
+        public int Attack
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取背景音乐编号。
+        /// 获取攻击间隔。
         /// </summary>
-        public int BackgroundMusicId
+        public float AttackInterval
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取子弹编号。
+        /// </summary>
+        public int BulletId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取子弹速度。
+        /// </summary>
+        public float BulletSpeed
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取子弹声音编号。
+        /// </summary>
+        public int BulletSoundId
         {
             get;
             private set;
@@ -67,8 +94,11 @@ namespace TankBattle
             index++;
             m_Id = int.Parse(columnTexts[index++]);
             index++;
-            AssetName = columnTexts[index++];
-            BackgroundMusicId = int.Parse(columnTexts[index++]);
+            Attack = int.Parse(columnTexts[index++]);
+            AttackInterval = float.Parse(columnTexts[index++]);
+            BulletId = int.Parse(columnTexts[index++]);
+            BulletSpeed = float.Parse(columnTexts[index++]);
+            BulletSoundId = int.Parse(columnTexts[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -82,8 +112,11 @@ namespace TankBattle
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.ReadInt32();
-                    AssetName = binaryReader.ReadString();
-                    BackgroundMusicId = binaryReader.ReadInt32();
+                    Attack = binaryReader.ReadInt32();
+                    AttackInterval = binaryReader.ReadSingle();
+                    BulletId = binaryReader.ReadInt32();
+                    BulletSpeed = binaryReader.ReadSingle();
+                    BulletSoundId = binaryReader.ReadInt32();
                 }
             }
 
