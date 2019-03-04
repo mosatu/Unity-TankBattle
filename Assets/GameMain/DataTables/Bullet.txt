@@ -2,4 +2,4 @@
 #	Id		MaxDamage	ExplosionForce	MaxLifeTime	ExplosionRadius
 #	int		float	float	float	float
 #	属性编号	策划备注	炮弹打中坦克时的最大伤害	爆炸的力量	炮弹的伤害有效时间	炮弹伤害范围圈半径
-	1000	一号炮弹	100	1000	2	5
+	1000	一号炮弹	50	600	2	4

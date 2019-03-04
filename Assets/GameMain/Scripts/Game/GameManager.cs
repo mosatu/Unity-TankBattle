@@ -8,10 +8,10 @@ namespace TankBattle
 {
     public class GameManager : MonoBehaviour
     {
-        public int m_NumRoundsToWin = 1;            // The number of rounds a single player has to win to win the game.
+        public int m_NumRoundsToWin = 3;            // The number of rounds a single player has to win to win the game.
         public float m_StartDelay = 3f;             // The delay between the start of RoundStarting and RoundPlaying phases.
         public float m_EndDelay = 3f;               // The delay between the end of RoundPlaying and RoundEnding phases.
-        public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
+        public CameraControlPro m_CameraControl;       // Reference to the CameraControl script for control during different phases.
         public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
         public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
@@ -29,6 +29,8 @@ namespace TankBattle
             get;
             protected set;
         }
+        
+        
         
         public void Start()
         {
@@ -63,18 +65,8 @@ namespace TankBattle
 
         private void SetCameraTargets()
         {
-            // Create a collection of transforms the same size as the number of tanks.
-            Transform[] targets = new Transform[m_Tanks.Length];
-
-            // For each of these transforms...
-            for (int i = 0; i < targets.Length; i++)
-            {
-                // ... set it to the appropriate tank transform.
-                targets[i] = m_Tanks[i].m_Instance.transform;
-            }
-
-            // These are the targets the camera should follow.
-            m_CameraControl.m_Targets = targets;
+            Log.Debug("m_Tanks[0].m_Instance.transform  ---  " + m_Tanks[0].m_Instance.transform.ToString());
+            m_CameraControl.m_Target = m_Tanks[0].m_Instance.transform;
         }
 
 
@@ -114,7 +106,7 @@ namespace TankBattle
             DisableTankControl ();
 
             // Snap the camera's zoom and position to something appropriate for the reset tanks.
-            m_CameraControl.SetStartPositionAndSize ();
+//            m_CameraControl.SetStartPositionAndSize ();
 
             // Increment the round number and display text showing the players what round it is.
             m_RoundNumber++;
@@ -134,6 +126,7 @@ namespace TankBattle
             m_MessageText.text = string.Empty;
 
             // While there is not one tank left...
+            // 一直在这里等待，直到只有一个坦克剩余时，状态返回到下一个协程状态
             while (!OneTankLeft())
             {
                 // ... return on the next frame.
@@ -145,7 +138,7 @@ namespace TankBattle
         private IEnumerator RoundEnding ()
         {
             // Stop tanks from moving.
-            DisableTankControl ();
+//            DisableTankControl ();
 
             // Clear the winner from the previous round.
             m_RoundWinner = null;
@@ -190,6 +183,7 @@ namespace TankBattle
         
         // This function is to find out if there is a winner of the round.
         // This function is called with the assumption that 1 or fewer tanks are currently active.
+        // 一直在监听是否场面上只有一个坦克或者不剩下坦克，这时本局游戏结束
         private TankManager GetRoundWinner()
         {
             // Go through all the tanks...
@@ -255,16 +249,19 @@ namespace TankBattle
         {
             for (int i = 0; i < m_Tanks.Length; i++)
             {
-                m_Tanks[i].Reset();
+                if(m_RoundWinner != m_Tanks[i])
+                    m_Tanks[i].Reset();
             }
         }
 
 
+        // 
         private void EnableTankControl()
         {
             for (int i = 0; i < m_Tanks.Length; i++)
             {
-                m_Tanks[i].EnableControl();
+                if(m_RoundWinner != m_Tanks[i])
+                    m_Tanks[i].EnableControl();
             }
         }
 
@@ -273,7 +270,8 @@ namespace TankBattle
         {
             for (int i = 0; i < m_Tanks.Length; i++)
             {
-                m_Tanks[i].DisableControl();
+                if(m_RoundWinner != m_Tanks[i])
+                    m_Tanks[i].DisableControl();
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections;
+using System;
 using UnityEngine;
 
 namespace TankBattle
@@ -13,6 +14,7 @@ namespace TankBattle
 
         public Color m_PlayerColor;                             // This is the color this tank will be tinted.
         public Transform m_SpawnPoint;                          // The position and direction the tank will have when it spawns.
+        public TankManager[] enemyTanks;                        // 敌军坦克
         [HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
         [HideInInspector] public string m_ColoredPlayerText;    // A string that represents the player with their number colored to match their tank.
         [HideInInspector] public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
@@ -22,7 +24,9 @@ namespace TankBattle
         private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
         private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
+        private TankHealth m_Health;
 
+        private WaitForSeconds m_StartWait = new WaitForSeconds (3f);
 
         public void Setup ()
         {
@@ -30,10 +34,13 @@ namespace TankBattle
             m_Movement = m_Instance.GetComponent<TankMovement> ();
             m_Shooting = m_Instance.GetComponent<TankShooting> ();
             m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas> ().gameObject;
+            m_Health = m_Instance.GetComponent<TankHealth>();
 
             // Set the player numbers to be consistent across the scripts.
             m_Movement.m_PlayerNumber = m_PlayerNumber;
             m_Shooting.m_PlayerNumber = m_PlayerNumber;
+
+            m_Shooting.enemyTanks = enemyTanks;
 
             // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
             m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
@@ -57,9 +64,10 @@ namespace TankBattle
             m_Shooting.enabled = false;
 
             m_CanvasGameObject.SetActive (false);
+            m_Health.enabled = false;
         }
 
-
+        
         // Used during the phases of the game where the player should be able to control their tank.
         public void EnableControl ()
         {
@@ -67,8 +75,11 @@ namespace TankBattle
             m_Shooting.enabled = true;
 
             m_CanvasGameObject.SetActive (true);
-        }
+            
+            // 通过协程的方式，是的坦克血条功能延迟打开，营造无敌状态
+            m_Health.enabled = true;
 
+        }
 
         // Used at the start of each round to put the tank into it's default state.
         public void Reset ()

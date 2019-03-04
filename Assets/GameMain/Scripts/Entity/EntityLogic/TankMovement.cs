@@ -54,6 +54,9 @@ namespace TankBattle
             {
                 m_particleSystems[i].Play();
             }
+            
+            // 对于重生的坦克，有一闪一闪的效果，表示重生无敌状态
+            
         }
 
 

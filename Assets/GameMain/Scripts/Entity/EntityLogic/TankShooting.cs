@@ -2,6 +2,7 @@
 using GameFramework.DataTable;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityGameFramework.Runtime;
 
 namespace TankBattle
 {
@@ -17,8 +18,8 @@ namespace TankBattle
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
         public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
         public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
-       
-
+        public TankManager[] enemyTanks;
+        
         private float m_MinLaunchForce;             // The force given to the shell if the fire button is not held.
         private float m_MaxLaunchForce;             // The force given to the shell if the fire button is held for the max charge time.
         private float m_MaxChargeTime;              // How long the shell can charge for before it is fired at max force.
@@ -26,6 +27,10 @@ namespace TankBattle
         private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
         private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
+
+        public float attackRange = 30;
+        public float attackDistance = 1;
+        private float distance = 0;
 
 
         private void OnEnable()
@@ -56,6 +61,9 @@ namespace TankBattle
 
         private void Update ()
         {
+            // 自动搜寻最近目标并转动炮口方向
+            //SeekAndAim(enemyTanks);
+            
             // The slider should have a default value of the minimum launch force.
             m_AimSlider.value = m_MinLaunchForce;
 
@@ -94,11 +102,31 @@ namespace TankBattle
         }
         
         // 搜寻最近的目标
-        private Vector3 Seek()
+        private void SeekAndAim(TankManager[] enemyTanks)
         {
+            TankManager enemy = null;
+            distance = attackDistance;
 
+            // 遍历选取距离最近的目标
+            foreach (TankManager go in enemyTanks)
+            {
+                float temp = Vector3.Distance(go.m_Instance.transform.position, transform.position);
+                if (temp < distance)
+                {
+                    enemy = go;
+                    distance = temp;
+                }
+            }
 
-            return Vector3.up;
+            // 旋转坦克炮口方向
+            if (enemy != null)
+            {
+                Vector3 targetPos = enemy.m_Instance.transform.position;
+                targetPos.y = transform.position.y;
+                transform.LookAt(targetPos);
+                Log.Debug("坦克炮口 转向");
+            }
+            
         }
 
         

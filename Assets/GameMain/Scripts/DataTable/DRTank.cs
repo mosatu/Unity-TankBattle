@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-03-03 22:00:41.769
+// 生成时间：2019-03-04 22:07:32.308
 //------------------------------------------------------------
 
 using GameFramework;
@@ -34,6 +34,15 @@ namespace TankBattle
             {
                 return m_Id;
             }
+        }
+
+        /// <summary>
+        /// 获取坦克血量。
+        /// </summary>
+        public float StartingHealth
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -103,6 +112,7 @@ namespace TankBattle
             index++;
             m_Id = int.Parse(columnTexts[index++]);
             index++;
+            StartingHealth = float.Parse(columnTexts[index++]);
             Speed = float.Parse(columnTexts[index++]);
             TurnSpeed = float.Parse(columnTexts[index++]);
             PitchRange = float.Parse(columnTexts[index++]);
@@ -122,6 +132,7 @@ namespace TankBattle
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.ReadInt32();
+                    StartingHealth = binaryReader.ReadSingle();
                     Speed = binaryReader.ReadSingle();
                     TurnSpeed = binaryReader.ReadSingle();
                     PitchRange = binaryReader.ReadSingle();
