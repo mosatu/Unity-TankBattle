@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor.DataTableTools
 {
@@ -69,6 +70,12 @@ namespace UnityGameFramework.Editor.DataTableTools
                 }
                 else if (rawValue.Length != rawColumnCount)
                 {
+                    // print the error row data
+                    for (int j = 0; j < rawValue.Length; j++)
+                    {
+                        Log.Debug("raw " + i.ToString() + "column " + j.ToString() + " " + rawValue[j]);
+                    }
+                    
                     throw new GameFrameworkException(Utility.Text.Format("Raw Column is '{1}', but line '{0}' column is '{2}'.", i.ToString(), rawColumnCount.ToString(), rawValue.Length.ToString()));
                 }
 

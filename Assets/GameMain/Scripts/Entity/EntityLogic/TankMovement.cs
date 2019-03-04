@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameFramework.DataTable;
+using UnityEngine;
 
 namespace TankBattle
 {
@@ -7,13 +8,13 @@ namespace TankBattle
     /// </summary>
     public class TankMovement : MonoBehaviour
     {
-        public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
-        public float m_Speed = 12f;                 // How fast the tank moves forward and back.
-        public float m_TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
+        public int m_PlayerNumber;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
+        private float m_Speed;                 // How fast the tank moves forward and back.
+        private float m_TurnSpeed;            // How fast the tank turns in degrees per second.
         public AudioSource m_MovementAudio;         // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
         public AudioClip m_EngineIdling;            // Audio to play when the tank isn't moving.
         public AudioClip m_EngineDriving;           // Audio to play when the tank is moving.
-		public float m_PitchRange = 0.2f;           // The amount by which the pitch of the engine noises can vary.
+        private float m_PitchRange;           // The amount by which the pitch of the engine noises can vary.
 
         private string m_MovementAxisName;          // The name of the input axis for moving forward and back.
         private string m_TurnAxisName;              // The name of the input axis for turning.
@@ -25,6 +26,13 @@ namespace TankBattle
 
         private void Awake ()
         {
+            // 初始化坦克的机动性相关属性
+            IDataTable<DRTank> dtEntity = GameEntry.DataTable.GetDataTable<DRTank>();
+            DRTank drEntity = dtEntity.GetDataRow(m_PlayerNumber);
+            m_Speed = drEntity.Speed;
+            m_TurnSpeed = drEntity.TurnSpeed;
+            m_PitchRange = drEntity.PitchRange;
+            
             m_Rigidbody = GetComponent<Rigidbody> ();
         }
 

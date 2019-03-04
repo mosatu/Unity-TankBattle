@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-03-03 20:21:57.761
+// 生成时间：2019-03-03 22:00:41.769
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace TankBattle
 {
     /// <summary>
-    /// 装甲表。
+    /// 坦克表。
     /// </summary>
-    public class DRArmor : DataRowBase
+    public class DRTank : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取装甲编号。
+        /// 获取坦克编号。
         /// </summary>
         public override int Id
         {
@@ -37,18 +37,54 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取最大生命。
+        /// 获取坦克速度。
         /// </summary>
-        public int MaxHP
+        public float Speed
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取防御力。
+        /// 获取坦克转速。
         /// </summary>
-        public int Defense
+        public float TurnSpeed
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取发动机噪音的间距可以变化的量。
+        /// </summary>
+        public float PitchRange
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取导弹发射的最小蓄力。
+        /// </summary>
+        public float MinLaunchForce
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取导弹发射的最大蓄力。
+        /// </summary>
+        public float MaxLaunchForce
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取蓄力的最长时间。
+        /// </summary>
+        public float MaxChargeTime
         {
             get;
             private set;
@@ -67,8 +103,12 @@ namespace TankBattle
             index++;
             m_Id = int.Parse(columnTexts[index++]);
             index++;
-            MaxHP = int.Parse(columnTexts[index++]);
-            Defense = int.Parse(columnTexts[index++]);
+            Speed = float.Parse(columnTexts[index++]);
+            TurnSpeed = float.Parse(columnTexts[index++]);
+            PitchRange = float.Parse(columnTexts[index++]);
+            MinLaunchForce = float.Parse(columnTexts[index++]);
+            MaxLaunchForce = float.Parse(columnTexts[index++]);
+            MaxChargeTime = float.Parse(columnTexts[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -82,8 +122,12 @@ namespace TankBattle
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.ReadInt32();
-                    MaxHP = binaryReader.ReadInt32();
-                    Defense = binaryReader.ReadInt32();
+                    Speed = binaryReader.ReadSingle();
+                    TurnSpeed = binaryReader.ReadSingle();
+                    PitchRange = binaryReader.ReadSingle();
+                    MinLaunchForce = binaryReader.ReadSingle();
+                    MaxLaunchForce = binaryReader.ReadSingle();
+                    MaxChargeTime = binaryReader.ReadSingle();
                 }
             }
 

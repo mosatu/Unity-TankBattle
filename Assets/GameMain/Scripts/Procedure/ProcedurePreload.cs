@@ -21,13 +21,6 @@ namespace TankBattle
         {
 /*
             "Aircraft",
-            "Scene",
-            "Sound",
-            "Weapon",
-            "Entity",
-            "Music",
-            */
-
             "Armor",
             "Asteroid",
             "Entity",
@@ -37,7 +30,11 @@ namespace TankBattle
             "Thruster",
             "UIForm",
             "UISound",
-            "Weapon",
+            "Weapon",*/
+            
+            "Bullet",
+            "Scene",
+            "Tank",
       
         };
 

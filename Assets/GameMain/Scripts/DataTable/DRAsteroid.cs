@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-03-01 18:46:54.091
+// 生成时间：2019-03-03 20:21:57.783
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace TankBattle
 {
     /// <summary>
-    /// 小行星表。
+    /// С���Ǳ�。
     /// </summary>
     public class DRAsteroid : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取小行星编号。
+        /// 获取С���Ǳ��。
         /// </summary>
         public override int Id
         {
@@ -37,7 +37,7 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取最大生命。
+        /// 获取�������。
         /// </summary>
         public int MaxHP
         {
@@ -46,7 +46,7 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取冲击力。
+        /// 获取�����。
         /// </summary>
         public int Attack
         {
@@ -55,7 +55,7 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取速度。
+        /// 获取�ٶ�。
         /// </summary>
         public float Speed
         {
@@ -64,7 +64,7 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取角速度。
+        /// 获取���ٶ�。
         /// </summary>
         public float AngularSpeed
         {
@@ -73,7 +73,7 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取死亡特效编号。
+        /// 获取������Ч���。
         /// </summary>
         public int DeadEffectId
         {
@@ -82,7 +82,7 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取死亡声音编号。
+        /// 获取����������。
         /// </summary>
         public int DeadSoundId
         {

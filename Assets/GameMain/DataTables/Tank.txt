@@ -1,0 +1,6 @@
+#	坦克表							
+#	PlayerNumber		Speed	TurnSpeed	PitchRange	MinLaunchForce	MaxLaunchForce	MaxChargeTime
+#	int		float	float	float	float	float	float
+#	坦克编号	策划备注	坦克速度	坦克转速	发动机噪音的间距可以变化的量	导弹发射的最小蓄力	导弹发射的最大蓄力	蓄力的最长时间
+	1	玩家坦克	12	180	0.2	15	30	0.75
+	2	敌人坦克	12	180	0.2	15	30	0.75
