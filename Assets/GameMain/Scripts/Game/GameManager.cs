@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,7 @@ namespace TankBattle
         public float m_EndDelay = 3f;               // The delay between the end of RoundPlaying and RoundEnding phases.
         public CameraControlPro m_CameraControl;       // Reference to the CameraControl script for control during different phases.
         public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
+        public Text m_Leaderboard;                  // 排行版显示
         public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
 
@@ -40,6 +42,10 @@ namespace TankBattle
 
             // init 
             GameOver = false;
+            // 强固定排行榜的位置
+//            m_Leaderboard.transform.position = new Vector2(10, 10);
+            m_Leaderboard.text = string.Empty;
+            
             
             SpawnAllTanks();
             SetCameraTargets();
@@ -65,8 +71,8 @@ namespace TankBattle
 
         private void SetCameraTargets()
         {
-            Log.Debug("m_Tanks[0].m_Instance.transform  ---  " + m_Tanks[0].m_Instance.transform.ToString());
-            m_CameraControl.m_Target = m_Tanks[0].m_Instance.transform;
+//            Log.Debug("m_Tanks[0].m_Instance.transform  ---  " + m_Tanks[0].m_Instance.transform.ToString());
+            m_CameraControl.m_Target = m_Tanks[1].m_Instance.transform;
         }
 
 
@@ -111,7 +117,7 @@ namespace TankBattle
             // Increment the round number and display text showing the players what round it is.
             m_RoundNumber++;
             m_MessageText.text = "ROUND " + m_RoundNumber;
-
+            
             // Wait for the specified length of time until yielding control back to the game loop.
             yield return m_StartWait;
         }
@@ -124,6 +130,10 @@ namespace TankBattle
 
             // Clear the text from the screen.
             m_MessageText.text = string.Empty;
+            
+            // 显示排行版消息
+            string leaderboardMessage = getLeaderboard(m_Tanks);
+            m_Leaderboard.text = leaderboardMessage;
 
             // While there is not one tank left...
             // 一直在这里等待，直到只有一个坦克剩余时，状态返回到下一个协程状态
@@ -157,11 +167,40 @@ namespace TankBattle
             string message = EndMessage ();
             m_MessageText.text = message;
 
+            // 显示排行版消息
+            string leaderboardMessage = getLeaderboard(m_Tanks);
+            m_Leaderboard.text = leaderboardMessage;
+
             // Wait for the specified length of time until yielding control back to the game loop.
             yield return m_EndWait;
         }
 
-
+        // 显示排行版
+        private String getLeaderboard(TankManager[] tanks)
+        {
+            string message = "";
+            // 按得分从大到小进行排行版排序  遍历选取最大的
+            for (int i = 0; i < tanks.Length; i++)
+            {
+                for (int j = 0; j < tanks.Length - i - 1; j++)
+                {
+                    if (tanks[j].m_Wins < tanks[j+1].m_Wins)
+                    {
+                        TankManager targetTank = tanks[j];
+                        tanks[j] = tanks[j + 1];
+                        tanks[j + 1] = targetTank;
+                    }
+                }
+            }
+            
+            // 拼接排行版结果
+            for (int i = 0; i < tanks.Length; i++)
+            {
+                message += tanks[i].m_ColoredPlayerText + ": " + tanks[i].m_Wins + "\n";
+            }
+            return message;
+        } 
+        
         // This is used to check if there is one or fewer tanks remaining and thus the round should end.
         private bool OneTankLeft()
         {
@@ -225,20 +264,20 @@ namespace TankBattle
 
             // If there is a winner then change the message to reflect that.
             if (m_RoundWinner != null)
-                message = m_RoundWinner.m_ColoredPlayerText + " WINS THE ROUND!";
+                message = m_RoundWinner.m_ColoredPlayerText + "\nWINS THE ROUND!";
 
             // Add some line breaks after the initial message.
-            message += "\n\n\n\n";
+            message += "\n\n";
 
-            // Go through all the tanks and add each of their scores to the message.
-            for (int i = 0; i < m_Tanks.Length; i++)
+            // Go through all the tanks and add each of their scores to the message. // 每一局开始 展示玩家得分
+            /*for (int i = 0; i < m_Tanks.Length; i++)
             {
                 message += m_Tanks[i].m_ColoredPlayerText + ": " + m_Tanks[i].m_Wins + " WINS\n";
-            }
+            }*/
 
             // If there is a game winner, change the entire message to reflect that.
             if (m_GameWinner != null)
-                message = m_GameWinner.m_ColoredPlayerText + " WINS THE GAME!";
+                message = m_GameWinner.m_ColoredPlayerText + "\nWINS THE GAME!";
 
             return message;
         }
