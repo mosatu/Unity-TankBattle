@@ -75,7 +75,7 @@ namespace TankBattle
                 Fire ();
             }
             // Otherwise, if the fire button has just started being pressed...
-            else if (Input.GetButtonDown (m_FireButton))
+            else if (Input.GetButton (m_FireButton) || ETCInput.GetButtonDown (m_FireButton))
             {
                 // ... reset the fired flag and reset the launch force.
                 m_Fired = false;
@@ -86,7 +86,7 @@ namespace TankBattle
                 m_ShootingAudio.Play ();
             }
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
-            else if (Input.GetButton (m_FireButton) && !m_Fired)
+            else if (Input.GetButton (m_FireButton) || ETCInput.GetButton (m_FireButton) && !m_Fired)
             {
                 // Increment the launch force and update the slider.
                 m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
@@ -94,12 +94,15 @@ namespace TankBattle
                 m_AimSlider.value = m_CurrentLaunchForce;
             }
             // Otherwise, if the fire button is released and the shell hasn't been launched yet...
-            else if (Input.GetButtonUp (m_FireButton) && !m_Fired)
+            else if (Input.GetButton (m_FireButton) || ETCInput.GetButtonUp (m_FireButton) && !m_Fired)
             {
                 // ... launch the shell.
                 Fire ();
             }
         }
+        
+        
+        // 对原来的Update内容进行封装,方便ETCAxis.cs方法的Button触发事件调用 
         
         // 搜寻最近的目标
         private void SeekAndAim(TankManager[] enemyTanks)
@@ -136,7 +139,7 @@ namespace TankBattle
             
         }
 
-        private void Fire ()
+        public void Fire ()
         {
             // Set the fired flag so only Fire is only called once.
             m_Fired = true;

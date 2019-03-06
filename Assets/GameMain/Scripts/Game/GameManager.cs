@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 
 namespace TankBattle
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoSingleton<GameManager>
     {
         public int m_NumRoundsToWin = 3;            // The number of rounds a single player has to win to win the game.
         public float m_StartDelay = 3f;             // The delay between the start of RoundStarting and RoundPlaying phases.
@@ -72,7 +72,7 @@ namespace TankBattle
         private void SetCameraTargets()
         {
 //            Log.Debug("m_Tanks[0].m_Instance.transform  ---  " + m_Tanks[0].m_Instance.transform.ToString());
-            m_CameraControl.m_Target = m_Tanks[1].m_Instance.transform;
+            m_CameraControl.m_Target = m_Tanks[0].m_Instance.transform;
         }
 
 
@@ -176,9 +176,10 @@ namespace TankBattle
         }
 
         // 显示排行版
-        private String getLeaderboard(TankManager[] tanks)
+        private String getLeaderboard(TankManager[] tankManager)
         {
             string message = "";
+            TankManager[] tanks = (TankManager[]) tankManager.Clone();
             // 按得分从大到小进行排行版排序  遍历选取最大的
             for (int i = 0; i < tanks.Length; i++)
             {
@@ -312,6 +313,12 @@ namespace TankBattle
                 if(m_RoundWinner != m_Tanks[i])
                     m_Tanks[i].DisableControl();
             }
+        }
+
+        public void TankFire()
+        {
+            m_Tanks[0].Fire();
+                
         }
     }
 }

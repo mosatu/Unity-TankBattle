@@ -78,6 +78,8 @@ namespace TankBattle
             // The axes names are based on player number.
             m_MovementAxisName = "Vertical" + m_PlayerNumber;
             m_TurnAxisName = "Horizontal" + m_PlayerNumber;
+//            m_MovementAxisName = "Vertical";
+//            m_TurnAxisName = "Horizontal";
 
             // Store the original pitch of the audio source.
             m_OriginalPitch = m_MovementAudio.pitch;
@@ -87,8 +89,11 @@ namespace TankBattle
         private void Update ()
         {
             // Store the value of both input axes.
-            m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
-            m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
+//            m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
+//            m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
+            
+            m_MovementInputValue = ETCInput.GetAxis (m_MovementAxisName);
+            m_TurnInputValue = ETCInput.GetAxis (m_TurnAxisName);
 
             EngineAudio ();
         }

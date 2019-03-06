@@ -90,5 +90,10 @@ namespace TankBattle
             m_Instance.SetActive (false);
             m_Instance.SetActive (true);
         }
+
+        // TankManager 中控制坦克开火
+        public void Fire() {
+            m_Shooting.Fire();
+        }
     }
 }
