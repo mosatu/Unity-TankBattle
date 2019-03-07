@@ -5,23 +5,25 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework.DataTable;
 using System;
+using GameFramework.DataTable;
 using UnityEngine;
 
 namespace TankBattle
 {
     /// <summary>
-    /// 武器数据类
+    /// 武器数据类，主要进行的功能是：
+    ///     1. 注册武器数据对象，区分敌我阵营
+    ///     2. 在武器实体对象中，加载表中的数据并对外提供get接口。
     /// </summary>
     [Serializable]
     public class WeaponData : AccessoryObjectData
     {
         [SerializeField]
-        private int m_Attack = 0;                   //武器攻击力
+        private int m_MaxDamage = 0;                   //武器攻击力
 
         [SerializeField]
-        private float m_AttackInterval = 0f;        //w武器的攻击间隔时间
+        private float m_AttackInterval = 0f;        //武器的攻击间隔时间
 
         [SerializeField]
         private int m_BulletId = 0;                 // 武器发出的子弹Id编号
@@ -31,9 +33,22 @@ namespace TankBattle
 
         [SerializeField]
         private int m_BulletSoundId = 0;            // 子弹播放的音效编号
+        
+        [SerializeField] 
+        private float m_MinLaunchForce;            // 在不发射时默认的最小蓄力
+
+        [SerializeField] 
+        private float m_MaxLaunchForce;            // 在最大充能时间时可获得的最大蓄力
+
+        [SerializeField] 
+        private float m_MaxChargeTime;             // 炮弹在最大蓄力发射之前所耗费的充能时间
 
         /// <summary>
-        /// 武器数据的构造方法
+        /// 武器实体的初始化
+        ///     主要进行武器对哪一方造成伤害的界定，为武器 绑定实体ID，实体类型编号，实体所有者编号，武器所有者所处的阵营类型。
+        ///
+        ///     对武器数据的序列化字段进行实例化。
+        ///     
         /// </summary>
         /// <param name="entityId">实体编号</param>
         /// <param name="typeId">实体类型编号</param>
@@ -49,22 +64,19 @@ namespace TankBattle
                 return;
             }
 
-            m_Attack = drWeapon.Attack;
+            m_MaxDamage = drWeapon.MaxDamage;
             m_AttackInterval = drWeapon.AttackInterval;
             m_BulletId = drWeapon.BulletId;
-            m_BulletSpeed = drWeapon.BulletSpeed;
             m_BulletSoundId = drWeapon.BulletSoundId;
         }
 
         /// <summary>
-        /// 攻击力。
+        /// 武器最大伤害
         /// </summary>
-        public int Attack
+        public int MaxDamage
         {
-            get
-            {
-                return m_Attack;
-            }
+            get => m_MaxDamage;
+            set => m_MaxDamage = value;
         }
 
         /// <summary>
@@ -109,6 +121,24 @@ namespace TankBattle
             {
                 return m_BulletSoundId;
             }
+        }
+        
+        public float MinLaunchForce
+        {
+            get => m_MinLaunchForce;
+            set => m_MinLaunchForce = value;
+        }
+
+        public float MaxLaunchForce
+        {
+            get => m_MaxLaunchForce;
+            set => m_MaxLaunchForce = value;
+        }
+
+        public float MaxChargeTime
+        {
+            get => m_MaxChargeTime;
+            set => m_MaxChargeTime = value;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace TankBattle
             DRBullet drEntity = dtEntity.GetDataRow(1000);
             m_MaxDamage = drEntity.MaxDamage;
             m_ExplosionForce = drEntity.ExplosionForce;
-            m_MaxLifeTime = drEntity.ExplosionRadius;
+            m_MaxLifeTime = drEntity.MaxLifeTime;
             m_ExplosionRadius = drEntity.ExplosionRadius;
             
             // If it isn't destroyed by then, destroy the shell after it's lifetime.

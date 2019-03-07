@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-03-03 19:42:31.617
+// 生成时间：2019-03-06 16:04:57.551
 //------------------------------------------------------------
 
 using GameFramework;
@@ -39,7 +39,7 @@ namespace TankBattle
         /// <summary>
         /// 获取攻击力。
         /// </summary>
-        public int Attack
+        public int MaxDamage
         {
             get;
             private set;
@@ -64,18 +64,36 @@ namespace TankBattle
         }
 
         /// <summary>
-        /// 获取子弹速度。
+        /// 获取子弹声音编号。
         /// </summary>
-        public float BulletSpeed
+        public int BulletSoundId
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取子弹声音编号。
+        /// 获取爆炸缓冲力。
         /// </summary>
-        public int BulletSoundId
+        public float ExplosionForce
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取最大存活时间。
+        /// </summary>
+        public float MaxLifeTime
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取爆炸半径。
+        /// </summary>
+        public float ExplosionRadius
         {
             get;
             private set;
@@ -94,11 +112,13 @@ namespace TankBattle
             index++;
             m_Id = int.Parse(columnTexts[index++]);
             index++;
-            Attack = int.Parse(columnTexts[index++]);
+            MaxDamage = int.Parse(columnTexts[index++]);
             AttackInterval = float.Parse(columnTexts[index++]);
             BulletId = int.Parse(columnTexts[index++]);
-            BulletSpeed = float.Parse(columnTexts[index++]);
             BulletSoundId = int.Parse(columnTexts[index++]);
+            ExplosionForce = float.Parse(columnTexts[index++]);
+            MaxLifeTime = float.Parse(columnTexts[index++]);
+            ExplosionRadius = float.Parse(columnTexts[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -112,11 +132,13 @@ namespace TankBattle
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.ReadInt32();
-                    Attack = binaryReader.ReadInt32();
+                    MaxDamage = binaryReader.ReadInt32();
                     AttackInterval = binaryReader.ReadSingle();
                     BulletId = binaryReader.ReadInt32();
-                    BulletSpeed = binaryReader.ReadSingle();
                     BulletSoundId = binaryReader.ReadInt32();
+                    ExplosionForce = binaryReader.ReadSingle();
+                    MaxLifeTime = binaryReader.ReadSingle();
+                    ExplosionRadius = binaryReader.ReadSingle();
                 }
             }
 

@@ -29,12 +29,12 @@ namespace TankBattle
         
         public static void ShowWeapon(this EntityComponent entityComponent, WeaponData data)
         {
-            entityComponent.ShowEntity(typeof(Weapon), "Weapon", Constant.AssetPriority.WeaponAsset, data);
+            entityComponent.ShowEntity(typeof(TankWeapon), "Weapon", Constant.AssetPriority.WeaponAsset, data);
         }
         
         public static void ShowBullet(this EntityComponent entityCompoennt, BulletData data)
         {
-            entityCompoennt.ShowEntity(typeof(Bullet), "Bullet", Constant.AssetPriority.BulletAsset, data);
+            entityCompoennt.ShowEntity(typeof(TankBullet), "Bullet", Constant.AssetPriority.BulletAsset, data);
         }
         
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)

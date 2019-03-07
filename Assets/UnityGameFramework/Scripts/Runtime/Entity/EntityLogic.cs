@@ -31,7 +31,11 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取或设置实体名称。
+        /// 获取或设置实体名称。 相当于获取这个脚本所依附的实体的名称。
+        ///     补充：gameObject
+        ///             此组件附加到的gameObject对象。
+        ///             任意组件始终附加到gameObject对象上。
+        /// 
         /// </summary>
         public string Name
         {
@@ -47,6 +51,7 @@ namespace UnityGameFramework.Runtime
 
         /// <summary>
         /// 获取实体是否可用。
+        ///         注入实体的可用性状态，便于管理其实体是否可用。
         /// </summary>
         public bool Available
         {
@@ -58,6 +63,7 @@ namespace UnityGameFramework.Runtime
 
         /// <summary>
         /// 获取或设置实体是否可见。
+        ///     set ： 实体的可见性
         /// </summary>
         public bool Visible
         {

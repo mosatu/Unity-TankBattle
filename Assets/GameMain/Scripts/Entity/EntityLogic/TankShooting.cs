@@ -105,6 +105,7 @@ namespace TankBattle
         // 对原来的Update内容进行封装,方便ETCAxis.cs方法的Button触发事件调用 
         
         // 搜寻最近的目标
+/*
         private void SeekAndAim(TankManager[] enemyTanks)
         {
             TankManager enemy = null;
@@ -131,6 +132,7 @@ namespace TankBattle
             }
             
         }
+*/
 
         
         // 转动炮口指向目标方向

@@ -16,5 +16,10 @@ namespace TankBattle
         /// 生存模式。
         /// </summary>
         Survival,
+        
+        /// <summary>
+        /// 计时模式
+        /// </summary>
+        Timing,
     }
 }

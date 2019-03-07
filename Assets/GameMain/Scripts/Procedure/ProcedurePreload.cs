@@ -35,6 +35,10 @@ namespace TankBattle
             "Bullet",
             "Scene",
             "Tank",
+            "Weapon",
+            "Music",
+            "UISound",
+            "Weapon",
       
         };
 
